@@ -37,7 +37,7 @@ func (d *DNS) UpdateDNS(addresses []string) {
 	srvDomainName := fmt.Sprintf("_mongodb._tcp.%s.%s", config.RegionName, config.GCloudDomainName)
 	r, _ := regexp.Compile(fmt.Sprintf("db\\d.%s.%s", config.RegionName, config.GCloudDomainName))
 	for _, v := range records.Rrsets {
-		fmt.Printf("Records: [%s]: %s\n", v.Type, v.Name)
+		//fmt.Printf("Records: [%s]: %s\n", v.Type, v.Name)
 		if v.Name == fmt.Sprintf("%s.", srvDomainName) {
 			srvRecord = v
 		}
@@ -51,7 +51,8 @@ func (d *DNS) UpdateDNS(addresses []string) {
 	needUpdate := false
 
 	if len(aRecords) == 0 {
-		// cname records does not exists. going to add them
+		log.Printf("there is no existing A records. will create them and update SRV record as well")
+		// a records does not exists. going to add them
 		needUpdate = true
 	} else {
 		//check if any of the cname a;ready
@@ -63,7 +64,7 @@ func (d *DNS) UpdateDNS(addresses []string) {
 				}
 			}
 			if !found {
-				fmt.Printf("%s no longer exists\n", r.Rrdatas[0])
+				log.Printf("node %s no longer exists. will update the A records\n", r.Rrdatas[0])
 				needUpdate = true
 			}
 		}
@@ -111,7 +112,7 @@ func (d *DNS) UpdateDNS(addresses []string) {
 		if err != nil {
 			log.Fatalf("Unable to parse client secret file to config: %v", err)
 		}
-		fmt.Printf("change applied. id: %s", newC.Id)
+		log.Printf("DNS change applied. id: %s", newC.Id)
 	}
 
 }

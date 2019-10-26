@@ -65,13 +65,13 @@ func (m *Watcher) Start() {
 		if err != nil {
 			panic(err.Error())
 		}
-		fmt.Printf("There are %d nodes in the cluster\n", len(nodes.Items))
+		//fmt.Printf("There are %d nodes in the cluster\n", len(nodes.Items))
 
 		var addresses []string
 		for _, v := range nodes.Items {
 			for _, addr := range v.Status.Addresses {
 				if addr.Type == v12.NodeInternalIP {
-					fmt.Printf("internal IP address: %s", addr.Address)
+					//fmt.Printf("internal IP address: %s", addr.Address)
 					addresses = append(addresses, addr.Address)
 				}
 			}
