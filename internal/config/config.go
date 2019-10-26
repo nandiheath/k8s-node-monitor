@@ -6,24 +6,23 @@ import (
 	"os"
 )
 
-type config struct {
+var (
 	GoogleCredential     []byte
 	GCloudProjectID      string
-	GCloudSrvRecordName  string
+	GCloudDomainName     string
 	GCloudDNSManagedZone string
-}
-
-var Config config
+	RegionName           string
+)
 
 func init() {
-	Config = config{}
 	b64String := os.Getenv("GOOGLE_CREDENTIAL_JSON_B64")
 	if b64String == "" {
 		panic("GOOGLE_CREDENTIAL_JSON_B64 is not set!")
 	}
 
-	Config.GoogleCredential, _ = base64.StdEncoding.DecodeString(b64String)
-	Config.GCloudProjectID = os.Getenv("GCLOUD_DNS_PROJECT_ID")
-	Config.GCloudSrvRecordName = os.Getenv("GCLOUD_SRV_RECORD_NAME")
-    Config.GCloudDNSManagedZone = os.Getenv("GCLOUD_DNS_MANAGED_ZONE")
+	GoogleCredential, _ = base64.StdEncoding.DecodeString(b64String)
+	GCloudProjectID = os.Getenv("GCLOUD_DNS_PROJECT_ID")
+	GCloudDomainName = os.Getenv("GCLOUD_DNS_DOMAIN_NAME")
+	GCloudDNSManagedZone = os.Getenv("GCLOUD_DNS_MANAGED_ZONE")
+	RegionName = os.Getenv("REGION_NAME")
 }
