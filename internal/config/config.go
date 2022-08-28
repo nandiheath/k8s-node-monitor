@@ -2,8 +2,9 @@ package config
 
 import (
 	"encoding/base64"
-	_ "github.com/joho/godotenv/autoload"
 	"os"
+
+	_ "github.com/joho/godotenv/autoload"
 )
 
 var (
@@ -12,6 +13,7 @@ var (
 	GCloudDomainName     string
 	GCloudDNSManagedZone string
 	RegionName           string
+	KubeConfigPath       string
 )
 
 func init() {
@@ -25,4 +27,5 @@ func init() {
 	GCloudDomainName = os.Getenv("GCLOUD_DNS_DOMAIN_NAME")
 	GCloudDNSManagedZone = os.Getenv("GCLOUD_DNS_MANAGED_ZONE")
 	RegionName = os.Getenv("REGION_NAME")
+	KubeConfigPath = os.Getenv("KUBE_CONFIG_PATH")
 }
