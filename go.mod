@@ -3,10 +3,11 @@ module github.com/nandiheath/k8s-node-monitor
 go 1.12
 
 require (
+	github.com/alecthomas/kong v0.6.1
 	github.com/imdario/mergo v0.3.8 // indirect
 	github.com/joho/godotenv v1.3.0
+	github.com/sirupsen/logrus v1.9.0
 	golang.org/x/crypto v0.0.0-20191002192127-34f69633bfdc // indirect
-	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
 	golang.org/x/time v0.0.0-20190921001708-c4c64cad1fd0 // indirect
 	google.golang.org/api v0.10.0
 	k8s.io/api v0.0.0-20191005115622-2e41325d9e4b

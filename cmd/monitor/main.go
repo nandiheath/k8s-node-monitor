@@ -1,8 +1,14 @@
 package main
 
-import "github.com/nandiheath/k8s-node-monitor/internal/watcher"
+import (
+	"github.com/alecthomas/kong"
+	"github.com/nandiheath/k8s-node-monitor/internal/cmd"
+)
 
 func main() {
-	w := watcher.New()
-	w.Start()
+
+	c := cmd.Command{}
+	ctx := kong.Parse(&c)
+	ctx.Run()
+
 }

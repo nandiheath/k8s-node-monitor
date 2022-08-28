@@ -3,10 +3,12 @@ package watcher
 import (
 	"flag"
 	"fmt"
+
 	"time"
 
 	"github.com/nandiheath/k8s-node-monitor/internal/config"
 	"github.com/nandiheath/k8s-node-monitor/internal/dns"
+	"github.com/nandiheath/k8s-node-monitor/internal/log"
 	v12 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
@@ -47,30 +49,25 @@ func (m *Watcher) Start() {
 		if err != nil {
 			panic(err.Error())
 		}
-		fmt.Printf("There are %d nodes in the cluster\n", len(nodes.Items))
+
 
 		var addresses []string
 		for _, v := range nodes.Items {
+			if v.Spec.Unschedulable {
+				continue
+			}
 			for _, addr := range v.Status.Addresses {
 				if addr.Type == v12.NodeInternalIP {
 					fmt.Printf("internal IP address: %s\n", addr.Address)
 					addresses = append(addresses, addr.Address)
 				}
 			}
+
 		}
 
-		//dnsService.UpdateDNS(addresses)
-		dnsService.UpdateDNSV2(addresses, []dns.DNSConfig{
-			{
-				0,5, 30107,
-			},
-			{
-				10,5, 30207,
-			},
-			{
-				20,5, 30307,
-			},
-		})
+		log.Logger().Infof("There are %d nodes in the cluster and %d are schedulable\n", len(nodes.Items), len(addresses))
+
+		dnsService.UpdateDNS(addresses)
 		time.Sleep(5 * time.Minute)
 	}
 }
