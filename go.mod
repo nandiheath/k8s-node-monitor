@@ -7,11 +7,8 @@ require (
 	github.com/imdario/mergo v0.3.8 // indirect
 	github.com/joho/godotenv v1.3.0
 	github.com/sirupsen/logrus v1.9.0
-	golang.org/x/crypto v0.0.0-20191002192127-34f69633bfdc // indirect
-	golang.org/x/time v0.0.0-20190921001708-c4c64cad1fd0 // indirect
-	google.golang.org/api v0.10.0
-	k8s.io/api v0.0.0-20191005115622-2e41325d9e4b
-	k8s.io/apimachinery v0.0.0-20191005115455-e71eb83a557c
-	k8s.io/client-go v0.0.0-20190620085101-78d2af792bab
-	k8s.io/utils v0.0.0-20190923111123-69764acb6e8e // indirect
+	google.golang.org/api v0.15.0
+	k8s.io/api v0.20.0-alpha.2
+	k8s.io/apimachinery v0.20.0-alpha.2
+	k8s.io/client-go v0.20.0-alpha.2
 )
